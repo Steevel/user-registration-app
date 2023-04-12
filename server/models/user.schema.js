@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     name: {
-      typeof: "string",
+      type: "string",
+      required: [true, "Name is required"],
       trim: true,
-      require: [true, "Name is required"],
       maxlength: [25, "Name should not exceed 25 characters"],
     },
     email: {
       type: "string",
       unique: true,
-      trim: true,
       required: [true, "Email is required"],
+      trim: true,
     },
     password: {
       type: "string",
@@ -27,5 +27,5 @@ const userSchema = new Schema(
   }
 );
 
-const UserModel = mongoose.Model("User", userSchema);
+const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;
