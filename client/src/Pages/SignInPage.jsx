@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { useForm } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
 
 const SignInPage = () => {
+  const { register, control, handleSubmit, formState: { errors } } = useForm()
+
+  const loginHandler = (formData) => {
+    console.log("form submitted", formData);
+  }
+
   return (
     <div className="flex items-center justify-center">
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8 sm:py-16 lg:py-24">
@@ -18,7 +26,7 @@ const SignInPage = () => {
             </Link>
           </p>
 
-          <form action="#" method="POST" className="mt-8">
+          <form action="#" method="POST" className="mt-8" onSubmit={handleSubmit(loginHandler)} noValidate>
             <div className="space-y-5">
               <div>
                 <label
@@ -33,8 +41,19 @@ const SignInPage = () => {
                     className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 "
                     type="email"
                     placeholder="Email"
+                    id="email"
+                    {...register("email",
+                      {
+                        required: { value: true, message: "Email is required" },
+                        pattern: {
+                          value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                          message: 'Invalid email format'
+                        },
+                      })
+                    }
                   ></input>
                 </div>
+                <p className="text-red-500">{errors.email?.message}</p>
               </div>
 
               <div>
@@ -60,8 +79,14 @@ const SignInPage = () => {
                     className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
                     placeholder="Password"
+                    autoComplete="on"
+                    id="password"
+                    {...register('password', {
+                      required: { value: true, message: "Password is required" },
+                    })}
                   ></input>
                 </div>
+                <p className="text-red-500">{errors.password?.message}</p>
               </div>
 
               <div>
@@ -85,7 +110,7 @@ const SignInPage = () => {
               </div>
             </div>
           </form>
-
+          <DevTool control={control} />
         </div>
       </div>
     </div>
