@@ -1,10 +1,18 @@
-import './App.css';
+import "./App.css";
+import SignInPage from "./Pages/SignInPage";
+import SignUpPage from "./Pages/SignUpPage";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <h1>User Registration App</h1>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<SignInPage />} />
+        <Route path="/register" element={<SignUpPage />} />
+      </Routes>
+    </>
   );
 }
 
