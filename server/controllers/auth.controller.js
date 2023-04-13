@@ -124,7 +124,7 @@ exports.login = async (req, res) => {
  * @GET_USER_DATA
  * @REQUEST_TYPE GET
  * @route http://localhost:4000/api/auth/userdata
- * @description check for token and populate req.user
+ * @description
  * @parameters
  * @returns User Info Object
  ******************************************************/
@@ -148,5 +148,36 @@ exports.getUserData = async (req, res) => {
     res
       .status(400)
       .send({ success: true, message: "Could not retrive user data" });
+  }
+};
+
+/******************************************************
+ * @UPDATE_USER_DATA
+ * @REQUEST_TYPE POST
+ * @route http://localhost:4000/api/auth/userdata
+ * @description
+ * @parameters
+ * @returns User Info Object
+ ******************************************************/
+
+exports.updateUserData = async (req, res) => {
+  const updatedInfo = req.body;
+
+  if (!updatedInfo) {
+    return res
+      .status(400)
+      .send({ success: false, message: "Please fill all fields" });
+  }
+
+  try {
+    await User.findByIdAndUpdate(updatedInfo._id, updatedInfo);
+
+    return res
+      .status(200)
+      .send({ success: true, message: "Updated successfully" });
+  } catch (err) {
+    return res
+      .status(400)
+      .send({ success: false, message: "Could not update user data" });
   }
 };

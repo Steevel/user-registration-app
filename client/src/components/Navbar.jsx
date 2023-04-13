@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
-  console.log("renderNavbar");
   const navigate = useNavigate()
   const prevLoginState = JSON.parse(localStorage.getItem('LoggedIn'));
   const [isLoggedIn, setIsLoggedIn] = useState(prevLoginState);

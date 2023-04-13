@@ -6,16 +6,33 @@ const HomePage = () => {
   const navigate = useNavigate()
   const [userInfo, setUserInfo] = useState({})
 
-  const editName = () => {
+  // Edit user's name
+  const editName = async () => {
     const editedName = prompt("Edit your name")
-    console.log("editName", editedName);
+
+    if (editedName.trim() !== "") {
+      const updatedInfo = { ...userInfo, name: editedName }
+
+      try {
+        await axios.put('http://localhost:4000/api/auth/updatedata', updatedInfo, { withCredentials: true })
+        getUserData()
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
+  // Updated password
+  const updatePassword = () => {
+    const newPassword = prompt("Enter your new password")
+    console.log(newPassword);
+  }
+
+  // Get user data
   const getUserData = async () => {
     try {
-      const { data } = await axios.get('http://localhost:4000/api/auth/userdata', { withCredentials: true })
-      console.log("userData: ", data);
-      setUserInfo(data)
+      const { data: { message: info } } = await axios.get('http://localhost:4000/api/auth/getdata', { withCredentials: true })
+      setUserInfo(info)
     } catch (e) {
       console.log("Error ", e);
     }
@@ -55,9 +72,9 @@ const HomePage = () => {
           </div>
           <div className="p-2">
             <div className="flex items-center justify-center">
-              <h3 className="flex-1 text-xl font-medium leading-8 text-center text-gray-900">{userInfo.message?.name}</h3>
-              <button onClick={editName}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4F46E5" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              <h3 className="flex-1 text-xl font-medium leading-8 text-center text-gray-900">{userInfo.name}</h3>
+              <button onClick={editName}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#4F46E5" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
               </svg>
               </button>
             </div>
@@ -65,22 +82,22 @@ const HomePage = () => {
               <tbody>
                 <tr>
                   <td className="px-2 py-2 font-semibold text-gray-500">Email</td>
-                  <td className="px-2 py-2">{userInfo.message?.email}</td>
+                  <td className="px-2 py-2">{userInfo.email}</td>
                 </tr>
                 <tr>
                   <td className="px-2 py-2 font-semibold text-gray-500">ID</td>
-                  <td className="px-2 py-2">{userInfo.message?._id}</td>
+                  <td className="px-2 py-2">{userInfo._id}</td>
                 </tr>
                 <tr>
                   <td className="px-2 py-2 font-semibold text-gray-500">Registered on</td>
-                  <td className="px-2 py-2">{userInfo.message?.createdAt}</td>
+                  <td className="px-2 py-2">{userInfo.createdAt}</td>
                 </tr>
 
               </tbody></table>
 
-            {/* <div className="my-3 text-center">
-              <a className="text-xs italic font-medium text-indigo-500 hover:underline hover:text-indigo-600" href="#">View Profile</a>
-            </div> */}
+            <div className="my-3 text-center">
+              <button className="text-xs italic font-medium text-indigo-500 hover:underline hover:text-indigo-600" onClick={updatePassword}>Updated Password</button>
+            </div>
 
           </div>
         </div>
