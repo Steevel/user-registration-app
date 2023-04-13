@@ -22,18 +22,15 @@ const SignInPage = () => {
   localStorage.setItem('LoggedIn', false);
 
   const loginHandler = async (formData) => {
-    // console.log("form submitted", formData);
     try {
-      const { data } = await axios.post('http://localhost:4000/api/auth/login', formData)
+      const { data } = await axios.post('http://localhost:4000/api/auth/login', formData, { withCredentials: true })
       console.log("response: ", data);
 
       if (data.success) {
         localStorage.setItem('LoggedIn', true);
-        // setIsLoggedIn(true)
         navigate('/home')
       }
     } catch (e) {
-      // console.log("error: ", e.response.data);
       toast.error(`${e.response.data.message}`, toastOptions);
     }
   }

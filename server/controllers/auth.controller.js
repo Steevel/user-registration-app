@@ -47,8 +47,9 @@ exports.signUp = async (req, res) => {
 
     // sign 'data' with JWT_STRING to create a token
     const authtoken = JWT.sign(data, process.env.JWT_STRING);
+
     res.cookie("jwt", authtoken, {
-      expire: new Date() + 9999,
+      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
       httpOnly: true,
       sameSite: "None",
       secure: true,
@@ -116,5 +117,36 @@ exports.login = async (req, res) => {
       .send({ success: true, message: "User logged in successfully" });
   } catch (error) {
     res.status(400).send({ success: false, message: error.message });
+  }
+};
+
+/******************************************************
+ * @GET_USER_DATA
+ * @REQUEST_TYPE GET
+ * @route http://localhost:4000/api/auth/userdata
+ * @description check for token and populate req.user
+ * @parameters
+ * @returns User Info Object
+ ******************************************************/
+
+exports.getUserData = async (req, res) => {
+  try {
+    const token = req.cookies.jwt;
+
+    if (!token) {
+      return res
+        .status(400)
+        .send({ success: false, message: "Authorization Error" });
+    }
+
+    const data = JWT.verify(token, process.env.JWT_STRING);
+
+    const userInfo = await User.findById(data.user.id);
+
+    res.status(200).send({ success: true, message: userInfo });
+  } catch (e) {
+    res
+      .status(400)
+      .send({ success: true, message: "Could not retrive user data" });
   }
 };

@@ -1,17 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const HomePage = () => {
   const navigate = useNavigate()
+  const [userInfo, setUserInfo] = useState({})
 
+  const editName = () => {
+    const editedName = prompt("Edit your name")
+    console.log("editName", editedName);
+  }
+
+  const getUserData = async () => {
+    try {
+      const { data } = await axios.get('http://localhost:4000/api/auth/userdata', { withCredentials: true })
+      console.log("userData: ", data);
+      setUserInfo(data)
+    } catch (e) {
+      console.log("Error ", e);
+    }
+  }
 
   useEffect(() => {
     const isLoggedIn = JSON.parse(localStorage.getItem('LoggedIn'));
 
     if (!isLoggedIn) {
       navigate('/')
+    } else {
+      getUserData()
     }
-  })
+  }, [])
 
   return (
     <div className="flex items-center justify-center w-full h-[80vh]">
@@ -36,23 +54,28 @@ const HomePage = () => {
             </div>
           </div>
           <div className="p-2">
-            <h3 className="text-xl font-medium leading-8 text-center text-gray-900">Joh Doe</h3>
-            <div className="text-xs font-semibold text-center text-gray-400">
-              <p>Web Developer</p>
+            <div className="flex items-center justify-center">
+              <h3 className="flex-1 text-xl font-medium leading-8 text-center text-gray-900">{userInfo.message?.name}</h3>
+              <button onClick={editName}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4F46E5" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              </button>
             </div>
             <table className="my-3 text-xs">
-              <tbody><tr>
-                <td className="px-2 py-2 font-semibold text-gray-500">Address</td>
-                <td className="px-2 py-2">Chatakpur-3, Dhangadhi Kailali</td>
-              </tr>
-                <tr>
-                  <td className="px-2 py-2 font-semibold text-gray-500">Phone</td>
-                  <td className="px-2 py-2">+977 9955221114</td>
-                </tr>
+              <tbody>
                 <tr>
                   <td className="px-2 py-2 font-semibold text-gray-500">Email</td>
-                  <td className="px-2 py-2">john@exmaple.com</td>
+                  <td className="px-2 py-2">{userInfo.message?.email}</td>
                 </tr>
+                <tr>
+                  <td className="px-2 py-2 font-semibold text-gray-500">ID</td>
+                  <td className="px-2 py-2">{userInfo.message?._id}</td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-2 font-semibold text-gray-500">Registered on</td>
+                  <td className="px-2 py-2">{userInfo.message?.createdAt}</td>
+                </tr>
+
               </tbody></table>
 
             {/* <div className="my-3 text-center">

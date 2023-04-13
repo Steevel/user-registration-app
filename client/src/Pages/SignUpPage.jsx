@@ -24,8 +24,7 @@ const SignUpPage = () => {
     console.log("form submitted", formData);
 
     try {
-      const { data } = await axios.post('http://localhost:4000/api/auth/signup', formData)
-      console.log("response: ", data);
+      const { data } = await axios.post('http://localhost:4000/api/auth/signup', formData, { withCredentials: true })
 
       if (data.success) {
         localStorage.setItem('LoggedIn', true);
