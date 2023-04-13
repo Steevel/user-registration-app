@@ -3,12 +3,14 @@ const connectToDB = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 // Connect to the database
 connectToDB();

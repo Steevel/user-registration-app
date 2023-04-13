@@ -53,7 +53,6 @@ exports.signUp = async (req, res) => {
       sameSite: "None",
       secure: true,
     });
-    newUser.password = undefined;
 
     res.status(200).send({
       success: true,
@@ -66,7 +65,7 @@ exports.signUp = async (req, res) => {
 
 /******************************************************
  * @LOGIN
- * @route http://localhost:5000/api/auth/login
+ * @route http://localhost:4000/api/auth/login
  * @description User Sign In Controller for loging new user
  * @parameters  email, password
  * @returns User Object
@@ -82,7 +81,9 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email: email }).select("+password");
 
     if (!user) {
-      res.status(400).send({ success: false, message: "User not found!" });
+      return res
+        .status(400)
+        .send({ success: false, message: "User not found!" });
     }
 
     const isPasswordMatched = await bcrypt.compare(password, user.password);

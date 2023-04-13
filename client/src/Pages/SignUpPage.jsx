@@ -1,16 +1,43 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+
+const toastOptions = {
+  position: "top-right",
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+}
 
 const SignUpPage = () => {
+  const navigate = useNavigate()
   const { register, control, handleSubmit, formState: { errors } } = useForm()
 
-  const signupHandler = (formData) => {
+  const signupHandler = async (formData) => {
     console.log("form submitted", formData);
+
+    try {
+      const { data } = await axios.post('http://localhost:4000/api/auth/signup', formData)
+      console.log("response: ", data);
+
+      if (data.success) {
+        navigate('/home')
+      }
+    } catch (e) {
+      toast.error(`${e.response.data.message}`, toastOptions);
+    }
   }
 
   return (
     <div className="flex items-center justify-center">
+      <ToastContainer />
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto">
           <h2 className="text-3xl font-bold leading-tight text-black w-72 lg:w-80 sm:text-4xl">
@@ -98,6 +125,7 @@ const SignUpPage = () => {
                     id="password"
                     {...register('password', {
                       required: { value: true, message: "Password is required" },
+                      minLength: { value: 8, message: "Password should be atleast 8 characters long" },
                     })}
                   ></input>
                 </div>
