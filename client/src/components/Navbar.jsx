@@ -1,12 +1,26 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+  console.log("renderNavbar");
   const navigate = useNavigate()
-  const isLoggedIn = false;
+  const prevLoginState = JSON.parse(localStorage.getItem('LoggedIn'));
+  const [isLoggedIn, setIsLoggedIn] = useState(prevLoginState);
+
+  const handleLogout = () => {
+    localStorage.setItem('LoggedIn', false);
+    setIsLoggedIn(false);
+    navigate('/')
+  }
+
+  useEffect(() => {
+    const currentValue = JSON.parse(localStorage.getItem('LoggedIn'));
+    setIsLoggedIn(currentValue)
+  }, [prevLoginState])
 
   return (
 
-    <nav className="relative flex items-center justify-between px-4 py-4 shadow-md border-y ">
+    <nav className="relative flex items-center justify-between px-4 py-4 shadow-md border-y">
       <Link className="text-3xl font-bold leading-none" to="/">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +39,7 @@ const Navbar = () => {
 
       {isLoggedIn
         ? (
-          <button className="rounded-md bg-indigo-600 px-3.5 pt-1 pb-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500 ">
+          <button className="rounded-md bg-indigo-600 px-3.5 pt-1 pb-1.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500 " onClick={handleLogout}>
             Logout
           </button>
         )

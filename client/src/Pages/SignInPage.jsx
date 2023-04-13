@@ -19,14 +19,17 @@ const toastOptions = {
 const SignInPage = () => {
   const navigate = useNavigate()
   const { register, control, handleSubmit, formState: { errors } } = useForm()
+  localStorage.setItem('LoggedIn', false);
 
   const loginHandler = async (formData) => {
     // console.log("form submitted", formData);
     try {
       const { data } = await axios.post('http://localhost:4000/api/auth/login', formData)
-      // console.log("response: ", data);
+      console.log("response: ", data);
 
       if (data.success) {
+        localStorage.setItem('LoggedIn', true);
+        // setIsLoggedIn(true)
         navigate('/home')
       }
     } catch (e) {
@@ -143,7 +146,6 @@ const SignInPage = () => {
       </div>
     </div>
   );
-
 
 }
 

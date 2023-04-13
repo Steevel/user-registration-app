@@ -1,5 +1,18 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate()
+
+
+  useEffect(() => {
+    const isLoggedIn = JSON.parse(localStorage.getItem('LoggedIn'));
+
+    if (!isLoggedIn) {
+      navigate('/')
+    }
+  })
+
   return (
     <div className="flex items-center justify-center w-full h-[80vh]">
 
@@ -52,6 +65,7 @@ const HomePage = () => {
 
     </div>
   )
+
 }
 
 export default HomePage
