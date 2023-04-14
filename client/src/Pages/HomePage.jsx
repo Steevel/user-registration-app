@@ -12,6 +12,7 @@ const HomePage = () => {
 
     if (editedName.trim() !== "") {
       const updatedInfo = { ...userInfo, name: editedName }
+      console.log("updated info editinfo: ", updatedInfo);
 
       try {
         await axios.put('http://localhost:4000/api/auth/updatedata', updatedInfo, { withCredentials: true })
@@ -23,9 +24,19 @@ const HomePage = () => {
   }
 
   // Updated password
-  const updatePassword = () => {
+  const updatePassword = async () => {
     const newPassword = prompt("Enter your new password")
-    console.log(newPassword);
+
+    if (newPassword.trim() !== '') {
+      const updatedInfo = { ...userInfo, password: newPassword }
+
+      try {
+        await axios.put('http://localhost:4000/api/auth/updatedata', updatedInfo, { withCredentials: true })
+        // show success toast
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   // Get user data

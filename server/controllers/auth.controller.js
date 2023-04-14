@@ -161,7 +161,7 @@ exports.getUserData = async (req, res) => {
  ******************************************************/
 
 exports.updateUserData = async (req, res) => {
-  const updatedInfo = req.body;
+  let updatedInfo = req.body;
 
   if (!updatedInfo) {
     return res
@@ -169,8 +169,19 @@ exports.updateUserData = async (req, res) => {
       .send({ success: false, message: "Please fill all fields" });
   }
 
+  if (updatedInfo.password) {
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const securePassword = await bcrypt.hash(updatedInfo.password, salt);
+
+    updatedInfo = { ...updatedInfo, password: securePassword };
+  }
+
   try {
-    await User.findByIdAndUpdate(updatedInfo._id, updatedInfo);
+    const user = await User.findByIdAndUpdate(
+      updatedInfo._id,
+      updatedInfo
+    ).select("+password");
 
     return res
       .status(200)
