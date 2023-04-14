@@ -4,6 +4,8 @@ import { DevTool } from '@hookform/devtools'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import Modal from "../components/Modal";
+import { useState } from "react";
 
 const toastOptions = {
   position: "top-right",
@@ -18,6 +20,7 @@ const toastOptions = {
 
 const SignInPage = () => {
   const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
   const { register, control, handleSubmit, formState: { errors } } = useForm()
   localStorage.setItem('LoggedIn', false);
 
@@ -37,6 +40,7 @@ const SignInPage = () => {
 
   return (
     <div className="flex items-center justify-center">
+      <Modal isOpen={isOpen} closeModal={() => setIsOpen(!isOpen)} />
       <ToastContainer />
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto">
@@ -53,7 +57,7 @@ const SignInPage = () => {
             </Link>
           </p>
 
-          <form action="#" method="POST" className="mt-8" onSubmit={handleSubmit(loginHandler)} noValidate>
+          <form action="#" method="POST" onSubmit={handleSubmit(loginHandler)} className="mt-8" noValidate>
             <div className="space-y-5">
               <div>
                 <label
@@ -93,13 +97,13 @@ const SignInPage = () => {
                     Password{" "}
                   </label>
 
-                  <Link
-                    to="/"
+                  <button
                     className="text-sm font-medium text-indigo-600 hover:underline hover:text-indigo-700 focus:text-indigo-700"
+                    onClick={() => setIsOpen(!isOpen)}
                   >
                     {" "}
                     Forgot password?{" "}
-                  </Link>
+                  </button>
                 </div>
                 <div className="mt-2.5">
                   <input
