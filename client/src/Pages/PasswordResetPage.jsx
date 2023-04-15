@@ -4,6 +4,8 @@ import { DevTool } from '@hookform/devtools'
 import { useRef } from "react";
 import axios from 'axios'
 
+const baseUrl = process.env.REACT_APP_BACKEND_URL
+
 const PasswordResetPage = () => {
   const navigate = useNavigate();
   const confPassElement = useRef(null);
@@ -16,7 +18,7 @@ const PasswordResetPage = () => {
     if (newpassword === confirmpassword) {
 
       try {
-        const { data } = await axios.post(`http://localhost:4000/api/auth/password/reset/${id}`, { newpassword })
+        const { data } = await axios.post(`${baseUrl}/api/auth/password/reset/${id}`, { newpassword })
 
         if (data.success) {
           navigate('/')

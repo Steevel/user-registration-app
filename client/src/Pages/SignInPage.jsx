@@ -7,6 +7,8 @@ import axios from 'axios';
 import Modal from "../components/Modal";
 import { useState } from "react";
 
+const baseUrl = process.env.REACT_APP_BACKEND_URL
+
 const toastOptions = {
   position: "top-right",
   autoClose: 2000,
@@ -26,7 +28,7 @@ const SignInPage = () => {
 
   const loginHandler = async (formData) => {
     try {
-      const { data } = await axios.post('http://localhost:4000/api/auth/login', formData, { withCredentials: true })
+      const { data } = await axios.post(`${baseUrl}/api/auth/login`, formData, { withCredentials: true })
 
       if (data.success) {
         localStorage.setItem('LoggedIn', true);

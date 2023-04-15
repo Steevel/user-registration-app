@@ -5,6 +5,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
+const baseUrl = process.env.REACT_APP_BACKEND_URL
+
 const toastOptions = {
   position: "top-right",
   autoClose: 2000,
@@ -23,7 +25,7 @@ const SignUpPage = () => {
   const signupHandler = async (formData) => {
 
     try {
-      const { data } = await axios.post('http://localhost:4000/api/auth/signup', formData, { withCredentials: true })
+      const { data } = await axios.post(`${baseUrl}/api/auth/signup`, formData, { withCredentials: true })
 
       if (data.success) {
         localStorage.setItem('LoggedIn', true);

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import axios from 'axios';
 
+const baseUrl = process.env.REACT_APP_BACKEND_URL
+
 const Modal = ({ isOpen, closeModal }) => {
 
   const [email, setEmail] = useState("")
@@ -32,7 +34,7 @@ const Modal = ({ isOpen, closeModal }) => {
       try {
         setSending(true)
         const { data } = await axios
-          .post('http://localhost:4000/api/auth/password/forgot',
+          .post(`${baseUrl}/api/auth/password/forgot`,
             { email },
             { withCredentials: true }
           )
