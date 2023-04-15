@@ -14,7 +14,6 @@ const HomePage = () => {
 
     if (editedName.trim() !== "") {
       const updatedInfo = { ...userInfo, name: editedName }
-      console.log("updated info editinfo: ", updatedInfo);
 
       try {
         await axios.put('http://localhost:4000/api/auth/updatedata', updatedInfo, { withCredentials: true })

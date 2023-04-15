@@ -1,3 +1,4 @@
+require("dotenv").config();
 const User = require("../models/user.schema");
 const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
@@ -233,7 +234,7 @@ exports.forgotPassword = async (req, res) => {
 
     const token = JWT.sign(data, process.env.JWT_STRING);
 
-    const resetUrl = `http://localhost:3000/password/reset/${token}`;
+    const resetUrl = `${process.env.FRONTEND_URI}/password/reset/${token}`;
     // console.log("reset url", resetUrl);
 
     const emailText = `Your password reset link: ${resetUrl}`;
