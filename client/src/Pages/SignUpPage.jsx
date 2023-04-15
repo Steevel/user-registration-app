@@ -45,7 +45,7 @@ const SignUpPage = () => {
             Sign Up
           </h2>
           <p className="mt-2 text-base text-gray-600 ">
-            Already have an account?
+            Already have an account?&nbsp;
             <Link
               to="/"
               className="font-medium text-indigo-600 transition-all duration-200 hover:text-indigo-700 hover:underline focus:text-indigo-700"
@@ -132,7 +132,7 @@ const SignUpPage = () => {
 
               <div>
                 <button className="w-full inline-flex items-center justify-center rounded-md bg-indigo-600 px-3.5 py-2.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
-                  Get started
+                  Get Started
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

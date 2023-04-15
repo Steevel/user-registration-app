@@ -49,7 +49,7 @@ const SignInPage = () => {
             Sign in
           </h2>
           <p className="mt-2 text-base text-gray-600 ">
-            Don&apos;t have an account?
+            Don&apos;t have an account?&nbsp;
             <Link
               to="/register"
               className="font-medium text-indigo-600 transition-all duration-200 hover:text-indigo-700 hover:underline focus:text-indigo-700"
@@ -62,7 +62,7 @@ const SignInPage = () => {
             <div className="space-y-5">
               <div>
                 <label
-                  htmlFor=""
+                  htmlFor="email"
                   className="text-base font-medium text-gray-900 "
                 >
                   Email address
@@ -90,7 +90,7 @@ const SignInPage = () => {
               <div>
                 <div className="flex items-center justify-between">
                   <label
-                    htmlFor=""
+                    htmlFor="password"
                     className="text-base font-medium text-gray-900 "
                   >
                     Password
@@ -121,7 +121,7 @@ const SignInPage = () => {
 
               <div>
                 <button className="w-full inline-flex items-center justify-center rounded-md bg-indigo-600 px-3.5 py-2.5 text-base font-semibold leading-7 text-white hover:bg-indigo-500">
-                  Get started
+                  Get Started
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
