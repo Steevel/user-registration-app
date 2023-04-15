@@ -27,7 +27,6 @@ const SignInPage = () => {
   const loginHandler = async (formData) => {
     try {
       const { data } = await axios.post('http://localhost:4000/api/auth/login', formData, { withCredentials: true })
-      console.log("response: ", data);
 
       if (data.success) {
         localStorage.setItem('LoggedIn', true);
@@ -69,7 +68,7 @@ const SignInPage = () => {
                 </label>
                 <div className="mt-2.5">
                   <input
-                    className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 "
+                    className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 "
                     type="email"
                     placeholder="Email"
                     id="email"
@@ -107,7 +106,7 @@ const SignInPage = () => {
                 </div>
                 <div className="mt-2.5">
                   <input
-                    className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
                     placeholder="Password"
                     autoComplete="on"
