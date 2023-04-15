@@ -16,7 +16,7 @@ const HomePage = () => {
       const updatedInfo = { ...userInfo, name: editedName }
 
       try {
-        await axios.put('http://localhost:4000/api/auth/updatedata', updatedInfo, { withCredentials: true })
+        await axios.put(`${baseUrl}/api/auth/updatedata`, updatedInfo, { withCredentials: true })
         getUserData()
       } catch (error) {
         console.log(error);
@@ -43,7 +43,7 @@ const HomePage = () => {
   // Get user data
   const getUserData = async () => {
     try {
-      const { data: { message: info } } = await axios.get('http://localhost:4000/api/auth/getdata', { withCredentials: true })
+      const { data: { message: info } } = await axios.get(`${baseUrl}/api/auth/getdata`, { withCredentials: true })
       setUserInfo(info)
     } catch (e) {
       console.log("Error ", e);
