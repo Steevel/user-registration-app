@@ -49,7 +49,7 @@ const SignInPage = () => {
             Sign in
           </h2>
           <p className="mt-2 text-base text-gray-600 ">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?
             <Link
               to="/register"
               className="font-medium text-indigo-600 transition-all duration-200 hover:text-indigo-700 hover:underline focus:text-indigo-700"
@@ -65,8 +65,7 @@ const SignInPage = () => {
                   htmlFor=""
                   className="text-base font-medium text-gray-900 "
                 >
-                  {" "}
-                  Email address{" "}
+                  Email address
                 </label>
                 <div className="mt-2.5">
                   <input
@@ -94,17 +93,15 @@ const SignInPage = () => {
                     htmlFor=""
                     className="text-base font-medium text-gray-900 "
                   >
-                    {" "}
-                    Password{" "}
+                    Password
                   </label>
 
-                  <button
+                  <Link
                     className="text-sm font-medium text-indigo-600 hover:underline hover:text-indigo-700 focus:text-indigo-700"
                     onClick={() => setIsOpen(!isOpen)}
                   >
-                    {" "}
-                    Forgot password?{" "}
-                  </button>
+                    Forgot password?
+                  </Link>
                 </div>
                 <div className="mt-2.5">
                   <input

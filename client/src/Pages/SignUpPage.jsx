@@ -45,7 +45,7 @@ const SignUpPage = () => {
             Sign Up
           </h2>
           <p className="mt-2 text-base text-gray-600 ">
-            Already have an account?{" "}
+            Already have an account?
             <Link
               to="/"
               className="font-medium text-indigo-600 transition-all duration-200 hover:text-indigo-700 hover:underline focus:text-indigo-700"
@@ -61,8 +61,7 @@ const SignUpPage = () => {
                   htmlFor="name"
                   className="text-base font-medium text-gray-900 "
                 >
-                  {" "}
-                  Full Name{" "}
+                  Full Name
                 </label>
                 <div className="mt-2.5">
                   <input
@@ -86,8 +85,7 @@ const SignUpPage = () => {
                   htmlFor="email"
                   className="text-base font-medium text-gray-900 "
                 >
-                  {" "}
-                  Email address{" "}
+                  Email address
                 </label>
                 <div className="mt-2.5">
                   <input
@@ -114,8 +112,7 @@ const SignUpPage = () => {
                   htmlFor="password"
                   className="text-base font-medium text-gray-900 "
                 >
-                  {" "}
-                  Password{" "}
+                  Password
                 </label>
                 <div className="mt-2.5">
                   <input
