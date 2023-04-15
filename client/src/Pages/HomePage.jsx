@@ -59,7 +59,7 @@ const HomePage = () => {
     } else {
       getUserData()
     }
-  }, [])
+  }, [navigate])
 
   return (
     <div className="flex items-center justify-center w-full h-[80vh]">
