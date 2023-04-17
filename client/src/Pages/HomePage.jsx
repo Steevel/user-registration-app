@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { successMessage, errorMessage } from "../utils/toastOptions";
+import { ToastContainer } from "react-toastify";
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL
 
@@ -18,8 +20,9 @@ const HomePage = () => {
       try {
         await axios.put(`${baseUrl}/api/auth/updatedata`, updatedInfo, { withCredentials: true })
         getUserData()
+        successMessage("Name updated successfully")
       } catch (error) {
-        console.log(error);
+        errorMessage("Unable to edit the name. Please try again!")
       }
     }
   }
@@ -33,9 +36,9 @@ const HomePage = () => {
 
       try {
         await axios.put(`${baseUrl}/api/auth/updatedata`, updatedInfo, { withCredentials: true })
-        // show success toast
+        successMessage("Password updated successfully")
       } catch (error) {
-        console.log(error);
+        errorMessage("Unable to update password. Please try again!")
       }
     }
   }
@@ -46,7 +49,7 @@ const HomePage = () => {
       const { data: { message: info } } = await axios.get(`${baseUrl}/api/auth/getdata`, { withCredentials: true })
       setUserInfo(info)
     } catch (e) {
-      console.log("Error ", e);
+      errorMessage("Unable to retrive user info")
     }
   }
 
@@ -62,6 +65,7 @@ const HomePage = () => {
 
   return (
     <div className="flex items-center justify-center w-full h-[80vh]">
+      <ToastContainer />
       <div className="max-w-xs">
         <div className="py-3 bg-white rounded-lg shadow-xl">
           <div className="p-2">

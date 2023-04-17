@@ -1,22 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { errorMessage } from "../utils/toastOptions";
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL
-
-const toastOptions = {
-  position: "top-right",
-  autoClose: 2000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: "colored",
-}
 
 const SignUpPage = () => {
   const navigate = useNavigate()
@@ -32,7 +22,7 @@ const SignUpPage = () => {
         navigate('/home')
       }
     } catch (e) {
-      toast.error(`${e.response.data.message}`, toastOptions);
+      errorMessage("Unable to signup. Please try again!")
     }
   }
 
